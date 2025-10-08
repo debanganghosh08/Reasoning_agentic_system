@@ -1,0 +1,11 @@
+google-adk
+fastapi
+uvicorn
+torch
+transformers
+peft
+bitsandbytes
+accelerate
+huggingface_hub
+datasets
+pyngrok
