@@ -42,6 +42,53 @@ The system is composed of two main phases: a fine-tuning phase to specialize the
 - **Fine-Tuned Adapter:** Hosted on Hugging Face at: **[your-hf-username/your-repo-name]** **(<- IMPORTANT: Add your Hugging Face link here!)**
 - **Backend API:** FastAPI, Uvicorn
 
-## Folder Structure
+## Setup and Installation
 
-The repository is organized as follows:
+To run this project, please follow these steps:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/agentic-reasoning-system.git](https://github.com/your-username/agentic-reasoning-system.git)
+    cd agentic-reasoning-system
+    ```
+
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Authenticate with Hugging Face:**
+    You will need a Hugging Face account and an access token to download the base model.
+    ```bash
+    huggingface-cli login
+    ```
+
+## How to Run the Agent
+
+The agent is served via a FastAPI application. Due to the high RAM requirements of the model, it is strongly recommended to run the backend in a cloud environment with a GPU, such as Google Colab.
+
+A Colab notebook is provided that contains the consolidated code to launch the server and expose it with `ngrok`.
+
+If running locally (requires a powerful GPU and >16GB of RAM):
+
+1.  Navigate to the backend directory:
+    ```bash
+    cd agent_backend
+    ```
+
+2.  Run the server using uvicorn:
+    ```bash
+    python -m uvicorn main:app --reload
+    ```
+
+3.  The API will be available at `http://127.0.0.1:8000`. You can access the interactive documentation at `http://127.0.0.1:8000/docs`.
+
+## Fine-Tuning Process
+
+The model was fine-tuned on the provided `train.csv` dataset to specialize its ability to generate step-by-step reasoning. The script `fine_tuning/finetune_agent.py` contains the complete code for this process, which was executed on a Google Colab T4 GPU. The script handles data formatting, PEFT/LoRA configuration, and training using the Hugging Face `Trainer`.
